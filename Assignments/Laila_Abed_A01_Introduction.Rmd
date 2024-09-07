@@ -30,7 +30,7 @@ Enter answers to the questions just below the >Answer: prompt.
 
 3. Are there any components of the course about which you feel apprehensive?
 
-> Answer: No specific part. 
+> Answer: No specific part. Everything related to coding and data analysis with R is apprehensive for now. 
 
 
 ## 2) GitHub
