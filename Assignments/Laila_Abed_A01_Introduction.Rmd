@@ -22,11 +22,11 @@ Enter answers to the questions just below the >Answer: prompt.
 
 1. What are your previous experiences with data analytics, R, and Git? Include both formal and informal training.
 
-> Answer: 
+> Answer: None. I have no previous experience with R or Git. 
 
 2. Are there any components of the course about which you feel confident?
 
-> Answer: 
+> Answer: No. I am a beginar in learning R. 
 
 3. Are there any components of the course about which you feel apprehensive?
 
