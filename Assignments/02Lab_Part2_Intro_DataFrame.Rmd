@@ -101,9 +101,10 @@ create_df
 ## Data frame functions
 
 Some useful functions to use with data frames.
+ 
 
 ```{r}
-ncol(df)  
+ncol(df)  #no of rows columns
 nrow(df)  
 length(df)  #same as ncol
 summary(df)
