@@ -79,6 +79,8 @@ Below is a chunk of R code. You can run R code in several ways:
 1 / 200 * 30
 5 + 2 * 3
 (5 + 2) * 3
+mpg<-42
+
 
 # Common terms
 sqrt(25)
@@ -105,6 +107,8 @@ A quick note: in many situations, a `=` sign will substitute for a `<-`. Resist 
 
 ```{r}
 x <- 3*4
+Y <- 2*10
+Y
 ```
 
 Now, call up the object `x`. Notice that `x` has also just shown up in your Environment tab.
@@ -176,6 +180,17 @@ simplemeal <- recipe1(5)
 
 # Serve the recipe
 simplemeal
+
+recipe22 <- function(y) {
+  
+  mix <- y*5 +10
+  return(mix)
+}
+
+simplemeal22 <- recipe22(10)
+simplemeal22
+
+
 ```
 
 Two single ingredient recipes, baked at the same time:
