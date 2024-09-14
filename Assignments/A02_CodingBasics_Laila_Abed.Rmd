@@ -57,9 +57,9 @@ Median_Seq # show the value
 
 ```{r basics 2}
 #5. #6.
-student_names <- c("Ali","Sidd","Noor","Kelly") #vector class is character 
-test_scores <- c(90, 95, 80,98) #vector class is numeric integer 
-scholarship <- c(TRUE, FALSE, TRUE, TRUE) #vector class is logic 
+student_names <- c("Ali","Sidd","Noor","Kelly") #student_names vector class is character 
+test_scores <- c(90, 95, 80,98) #test_scores vector class is numeric 
+scholarship <- c(TRUE, FALSE, TRUE, TRUE) #scholarship vector class is logic 
 #7.
 data_frame_college <- data.frame(student_names, test_scores, scholarship) 
 #create data frame from the three vectors 
@@ -74,7 +74,7 @@ data_frame_college2 <- data.frame(
   TestScore = test_scores,
   HasScholarship = scholarship
 )
-# View(data_frame_college2)
+data_frame_college2
 
 ```
 
