@@ -32,15 +32,17 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 
 ```{r basics 1}
 #1. 
-Sequence_int <- seq(1, 55, 5) # create a sequence "Sequence _int" and assigning sequential values starting from 1 to 55 increasing by 5.
+Sequence_int <- seq(1, 55, 5) # create a sequence "Sequence _int" and 
+#assigning sequential values starting from 1 to 55 increasing by 5.
 Sequence_int # show the values of Sequence_int.
 #2. 
-Mean_Seq <- mean(Sequence_int) # calculate the mean and assign the value to Mean_seq
+Mean_Seq <- mean(Sequence_int) # calculate mean and assign the value to Mean_seq
 Mean_Seq # show the value
-Median_Seq <- median (Sequence_int) # calculate the median and assign the value to Median_seq
+Median_Seq <- median (Sequence_int) # calculate median and assign value to Median_seq
 Median_Seq # show the value
 #3. 
- Mean_Seq > Median_Seq # compare mean and median give true if mean greater than median and false otherwise. 
+ Mean_Seq > Median_Seq # compare mean and median give true if mean greater 
+ #than median and false otherwise. 
 ```
 
 ## Basics, Part 2
@@ -59,25 +61,35 @@ student_names <- c("Ali","Sidd","Noor","Kelly") #vector class is character
 test_scores <- c(90, 95, 80,98) #vector class is numeric integer 
 scholarship <- c(TRUE, FALSE, TRUE, TRUE) #vector class is logic 
 #7.
-data_frame_college <- data.frame(student_names, test_scores, scholarship) #create data frame from the three vectors 
+data_frame_college <- data.frame(student_names, test_scores, scholarship) 
+#create data frame from the three vectors 
 data_frame_college
 #8.
-names(data_frame_college) <- c("Student Name","Test Score","Has Scholraship"); View(data_frame_college) #naming the columns in the data frame 
-
+names(data_frame_college) <- c("Student Name","Test Score","Has Scholraship") 
+#naming the columns in the data frame 
+# View(data_frame_college)
 # Another way to create the data frame and change the names of the columns
 data_frame_college2 <- data.frame(
   StudentName = student_names,
   TestScore = test_scores,
   HasScholarship = scholarship
-);View(data_frame_college2)
+)
+# View(data_frame_college2)
 
 ```
 
 9.  QUESTION: How is this data frame different from a matrix?
 
 > Answer:
-- Data frame is a list of vectors (columns) of equal length, it can have different types of data in each column/vector. For example three columns, each has different type of data numeric, character, logical. Columns have names. If you know the name of the column, you can get the data under this column name.
-- Matrix is two dimensions array used widely in mathematics, it must have the same type of data (all elements from the smae type). For example all numeric, all character.Columns and rows don't have names. You have to enter row number and column number to get the data. 
+- Data frame is a list of vectors (columns) of equal length, it can have 
+different types of data in each column/vector. For example three columns, 
+each has different type of data numeric, character, logical. 
+Columns have names. If you know the name of the column, you can get the data 
+under this column name.
+- Matrix is two dimensions array used widely in mathematics, it must have the 
+same type of data (all elements from the smae type). For example all numeric, 
+all character.Columns and rows don't have names. You have to enter row number 
+and column number to get the data. 
 
 10. Create a function with one input. In this function, use `if`...`else` to evaluate the value of the input: if it is greater than 50, print the word "Pass"; otherwise print the word "Fail". 
 
@@ -96,13 +108,12 @@ function_pass_fail <- function (x){
 
 
 #11. Create a function using ifelse()
-#function_pass_fail_anotherway <- function(y){
-#  ifelse(y>50,"Pass","Fail")
-#}
 
 function_evaluate_pass_fail <- function(y){
  
-  ifelse(y > 50, print("Pass"), print("Fail"))}
+  Value <- ifelse(y > 50, "Pass", "Fail")
+  print(Value)
+  }
 #If X > 50, if TRUE Print Pass, if FALSE Print Fail.
 
 
@@ -110,19 +121,23 @@ function_evaluate_pass_fail <- function(y){
 function_pass_fail (52.5)
 
 #12b. Run the second function with the value 52.5
-function_pass_fail_anotherway (52.5)
+function_evaluate_pass_fail (52.5)
 
 #13a. Run the first function with the vector of test scores
 results <- c(100, 30, 85, 45, 90)
-#function_pass_fail (results) # 'If'... 'else' did not work because the function expects a single numeric value, when we give it vector of several values won't work. 
+#function_pass_fail (results) # 'If'... 'else' did not work because the function 
+#expects a single numeric value, when we give it vector of several values won't work. 
 
 #13b. Run the second function with the vector of test scores
-function_pass_fail_anotherway (results)   # 'ifelse' worked well, it can deal with vectors.  
+function_evaluate_pass_fail (results)   # 'ifelse' worked well, it can deal with 
+#vectors.  
 ```
 
 14. QUESTION: Which option of `if`...`else` vs. `ifelse` worked? Why? (Hint: search the web for "R vectorization")
 
-> Answer: 'If' ... 'else' did not work because the function expects a single numeric value, when we give it a vector of several values won't work. 
-While 'ifelse' worked well, it can deal with vectors. It applies the logic (condition) to each value and return the result. 
+> Answer: 'If' ... 'else' did not work because the function expects a single 
+numeric value, when we give it a vector of several values won't work. 
+While 'ifelse' worked well, it can deal with vectors. It applies the logic 
+(condition) to each value and return the result. 
 
 **NOTE** Before knitting, you'll need to comment out the call to the function in Q13 that does not work. (A document can't knit if the code it contains causes an error!)
