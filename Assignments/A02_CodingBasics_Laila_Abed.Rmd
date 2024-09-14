@@ -100,10 +100,9 @@ function_pass_fail <- function (x){
 #  ifelse(y>50,"Pass","Fail")
 #}
 
-function_evaluate_pass_fail <- function(y) {
+function_evaluate_pass_fail <- function(y){
  
-  result <- ifelse(y > 50, "Pass", "Fail")
-  }
+  ifelse(y > 50, print("Pass"), print("Fail"))}
 #If X > 50, if TRUE Print Pass, if FALSE Print Fail.
 
 
@@ -114,15 +113,16 @@ function_pass_fail (52.5)
 function_pass_fail_anotherway (52.5)
 
 #13a. Run the first function with the vector of test scores
-function_pass_fail (100, 55, 69, 40, 10,80, 35)
+results <- c(100, 30, 85, 45, 90)
+#function_pass_fail (results) # 'If'... 'else' did not work because the function expects a single numeric value, when we give it vector of several values won't work. 
 
 #13b. Run the second function with the vector of test scores
-function_pass_fail_anotherway (100, 55, 69, 40, 10,80, 35)
+function_pass_fail_anotherway (results)   # 'ifelse' worked well, it can deal with vectors.  
 ```
 
 14. QUESTION: Which option of `if`...`else` vs. `ifelse` worked? Why? (Hint: search the web for "R vectorization")
 
-> Answer: If else worked. 
-
+> Answer: 'If' ... 'else' did not work because the function expects a single numeric value, when we give it a vector of several values won't work. 
+While 'ifelse' worked well, it can deal with vectors. It applies the logic (condition) to each value and return the result. 
 
 **NOTE** Before knitting, you'll need to comment out the call to the function in Q13 that does not work. (A document can't knit if the code it contains causes an error!)
