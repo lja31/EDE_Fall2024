@@ -107,7 +107,7 @@ Some useful functions to use with data frames.
 ncol(df)  #no of rows columns
 nrow(df)  
 length(df)  #same as ncol
-summary(df)
+summary(df) #summary statistics 
 head(df) #show the first 6 rows of df
 
 #If you know the number of the column you want you can refer to that to access column
