@@ -332,7 +332,7 @@ Tip:
 usgs_flow_data <- read.csv(
   file = here('Data','Raw','USGS_Site02085000_Flow_Raw.csv'),
   stringsAsFactors = T,
-  colClasses = (c('site_no'='factor'))
+  colClasses = (c('site_no'='factor')) #convert numbers
 )
 #Convert date-time field to date
 usgs_flow_data$datetime = mdy(usgs_flow_data$datetime)
