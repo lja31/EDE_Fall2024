@@ -1,6 +1,6 @@
 ---
 title: "Assignment 3: Data Exploration"
-author: "Laila Abed
+author: "Laila Abed"
 date: "Fall 2024"
 output: pdf_document
 geometry: margin=2.54cm
@@ -117,8 +117,10 @@ sort(summary(Neonics$Effect))
 
 ```
 
-> Answer:1) Population (impact on the dynamics), 2) Mortality (impact on insect 
-population), 3) Behavior (changes and effect on species, resits/adapt), 
+> Answer:1) Population (impact on the dynamics and abundance of the populations 
+of insects and effects on the biodiversity), 2) Mortality (direct impact of 
+neonicotinoid pesticides on insect population numbers, effects on biodiversity), 
+3) Behavior (changes and effect on species, resits/adapt, survive, reproduce), 
 4) Feeding behavior (change/adapt), 5) Repordouction (affect the number of 
 population, biodiversity), 6) Development, 7) Avoidence. 
 
