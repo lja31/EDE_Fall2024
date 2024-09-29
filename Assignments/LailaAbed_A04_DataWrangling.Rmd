@@ -250,7 +250,7 @@ mean_AQI_PM25 = mean(AQI_PM2.5, na.rm = TRUE)
 ) %>%
 # Then I remove instances where mean ozone values are not available
 drop_na(mean_AQI_Ozone)
-#na.omit(mean_AQI_Ozone)
+#na.omit()
 # have a look at the data set
 head(summary_dataset)
 #13
