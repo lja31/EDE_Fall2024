@@ -121,10 +121,14 @@ EPAair_PM25_NC2019_Subdata <- EPAair_PM25_NC2019_Subdata %>%
 
 #6
 #Save all four processed datasets in the Processed folder
-write.csv(EPAair_O3_NC2018_Subdata, row.names = FALSE, file = "/home/guest/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_Processed.csv")
-write.csv(EPAair_O3_NC2019_Subdata, row.names = FALSE, file = "/home/guest/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_Processed.csv")
-write.csv(EPAair_PM25_NC2018_Subdata, row.names = FALSE, file = "/home/guest/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_Processed.csv")
-write.csv(EPAair_PM25_NC2019_Subdata, row.names = FALSE, file = "/home/guest/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_Processed.csv")
+write.csv(EPAair_O3_NC2018_Subdata, row.names = FALSE, file =  "/home/guest/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_Processed.csv"
+          )
+write.csv(EPAair_O3_NC2019_Subdata, row.names = FALSE, file =  "/home/guest/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_Processed.csv"
+          )
+write.csv(EPAair_PM25_NC2018_Subdata, row.names = FALSE, file =  "/home/guest/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_Processed.csv"
+          )
+write.csv(EPAair_PM25_NC2019_Subdata, row.names = FALSE, file =  "/home/guest/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_Processed.csv"
+          )
 ```
 
 
@@ -163,7 +167,9 @@ colnames(EPAair_O3_NC2019_Subdata)
 colnames(EPAair_PM25_NC2018_Subdata)
 colnames(EPAair_PM25_NC2019_Subdata)
 #Combine the four datasets
-combined_dataset <- rbind(EPAair_O3_NC2018_Subdata, EPAair_O3_NC2019_Subdata, EPAair_PM25_NC2018_Subdata, EPAair_PM25_NC2019_Subdata)
+combined_dataset <- rbind(
+  EPAair_O3_NC2018_Subdata, EPAair_O3_NC2019_Subdata, 
+  EPAair_PM25_NC2018_Subdata, EPAair_PM25_NC2019_Subdata)
 
 #8 
 # Upload dplyr 
@@ -194,7 +200,7 @@ Year = year(Date)
 #check the dimensions 
 dim(grouped_dataset)
     
-drop.na(dataset_common_sites)
+#drop.na(dataset_common_sites)
 #9
 # Spread datasets so AQI values for ozone and PM2.5 are in separate columns.
 spread_dataset <- grouped_dataset %>%
