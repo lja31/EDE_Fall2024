@@ -141,19 +141,54 @@ write.csv(EPAair_PM25_NC2019_Subdata, row.names = FALSE, file = "/home/guest/EDE
 
 ```{r questions 7 thru 11}
 #7 
-
+colnames(EPAair_O3_NC2018_Subdata)
+colnames(EPAair_O3_NC2019_Subdata)
+colnames(EPAair_PM25_NC2018_Subdata)
+colnames(EPAair_PM25_NC2019_Subdata)
+combined_dataset <- rbind(EPAair_O3_NC2018_Subdata, EPAair_O3_NC2019_Subdata, EPAair_PM25_NC2018_Subdata, EPAair_PM25_NC2019_Subdata)
 
 #8 
+library(dplyr)
+common_sites <- c(
+"Linville Falls", "Durham Armory", "Leggett", "Hattie Avenue",
+"Clemmons Middle", "Mendenhall School", "Frying Pan Mountain",
+"West Johnston Co.", "Garinger High School", "Castle Hayne",
+"Pitt Agri. Center", "Bryson City", "Millbrook School"
+)
+filtered_dataset <- combined_dataset %>%
+filter(Site.Name %in% common_sites)
 
-
+grouped_dataset <- filtered_dataset %>%
+group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
+summarize(
+meanAQI = mean(DAILY_AQI_VALUE),
+meanLAT = mean(SITE_LATITUDE),
+meanLONG = mean(SITE_LONGITUDE),
+)
+grouped_dataset <- grouped_dataset %>%
+mutate(
+Month = month(Date),
+Year = year(Date)
+)
+dim(grouped_dataset)
+    
+drop.na(dataset_common_sites)
 #9
+spread_dataset <- grouped_dataset %>%
+pivot_wider(
+id_cols = c(Date, Site.Name, COUNTY, Year, Month, meanLAT, meanLONG),
+names_from = AQS_PARAMETER_DESC,
+values_from = meanAQI,
+names_prefix = "AQI_"
+)
 
+glimpse(spread_dataset)
 
 #10
-
+dim(spread_dataset)
 
 #11
-
+write.csv(spread_dataset, file.path("/home/guest/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv"), row.names = FALSE)
 
 ```
 
@@ -168,14 +203,27 @@ write.csv(EPAair_PM25_NC2019_Subdata, row.names = FALSE, file = "/home/guest/EDE
 
 #12
 
+summary_dataset <- spread_dataset %>%
+group_by(Site.Name, Year, Month) %>%
 
+summarize(
+mean_AQI_Ozone = mean(AQI_Ozone, na.rm = TRUE),
+mean_AQI_PM25 = mean(AQI_PM2.5, na.rm = TRUE)
+) %>%
+# Then I remove instances where mean ozone values are not available
+drop_na(mean_AQI_Ozone)
+#na.omit(mean_AQI_Ozone)
+head(summary_dataset)
 #13
 
-
+dim(summary_dataset)
 
 ```
 
 14. Why did we use the function `drop_na` rather than `na.omit`? Hint: replace `drop_na` with `na.omit` in part 12 and observe what happens with the dimensions of the summary date frame.
 
-> Answer: 
+> Answer: We used the drop_na function over na.omit because drop_na allows us to selectively
+remove rows with missing values based on specific columns, offering more flexibility and customization.
+In our case, we wanted to retain rows with missing PM2.5 values while removing
+rows with missing ozone values, aligning with our data processing requirements.
 
