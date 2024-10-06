@@ -52,9 +52,9 @@ stringsAsFactors = TRUE)
 class(NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$sampledate)
 class(NEON.NIWO.Litter.mass.trap$collectDate)
 NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$sampledate <- as.Date(
-  NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$sampledate, Format="%Y%m%d") 
+  NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$sampledate, Format="%Y-%m-%d") 
 NEON.NIWO.Litter.mass.trap$collectDate <- as.Date(
-  NEON.NIWO.Litter.mass.trap$collectDate, Format="%Y%m%d") 
+  NEON.NIWO.Litter.mass.trap$collectDate, Format="%Y-%m-%d") 
 
 ```
 ## Define your theme
@@ -112,7 +112,10 @@ x = "Phosphate",
 y = "Total Phosphorus"
 ) +
  xlim(0, 20) +  
-  ylim(0, 60) +
+  ylim(0, 60) + theme_minimal() +
+facet_wrap(~ lakename, ncol = 2) # Separate plots for Peter and Paul lakes
+print(phosphorus_phosphate_plot)
+
  ## How we identified 20 and 60 is from the quantile 
 #scale_y_continuous(limits = c(0, 
 #quantile(NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$tp_ug, 0.95, 
@@ -120,9 +123,7 @@ y = "Total Phosphorus"
 #scale_x_continuous(limits = c(0, 
 #quantile(NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$po4, 0.95, 
 #         na.rm = TRUE))) +
-theme_minimal() +
-facet_wrap(~ lakename, ncol = 2) # Separate plots for Peter and Paul lakes
-print(phosphorus_phosphate_plot)
+
  
 ```
 
@@ -136,91 +137,81 @@ Tips:
 * Individual plots can have different sizes when combined using `cowplot`.
 
 ```{r Create boxplots}
+#5
+#all_months <- data.frame(month = unique(NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$month))
+# Here I merge my original data with the data frame containing all months
+#NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul <- merge(all_months, #NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul, by = "month", all.x = TRUE)
+# abbreviated month labels
+#month_labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+
 #5 
 #boxplot temperature
+
 plot_temp <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
-  ggplot(aes(x = month, y = temperature_C)) +
-  geom_boxplot(aes(color = lakename)) +
-  labs(y = "Temperature C") +
+  ggplot(
+    aes(x=factor(month, levels = unique(month)), y = temperature_C,
+        fill = lakename)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Temperature", y = "Temperature (°C)") +
   theme_minimal() +
+  scale_x_discrete(expand = c(0, 0)) + #,labels = month_labels)+
   theme(
     axis.title.x = element_blank(),
     legend.position = "none"
   )
-print(plot_temp)
+
 #boxplot total phosphorus 
 plot_tp <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
-  ggplot(aes(x = month, y = tp_ug)) +
-  geom_boxplot(color = lakename) +
-  labs(y = "Total Phosphorus_TP") +
-  theme_minimal() +
+  ggplot(
+    aes(x = factor(month, levels = unique(month)),
+y = tp_ug, fill = lakename)) +
+geom_boxplot() +
+labs(title = "Boxplot of Total Phosphorus (TP)", y = "Total P") +
+theme_minimal() +
+scale_x_discrete(expand = c(0, 0))+ #, labels = month_labels)+
   theme(
     axis.title.x = element_blank(),
     legend.position = "none"
   )
 #boxplot total nitrogen
 plot_tn <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
-  ggplot(aes(x = month, y = tn_ug)) +
-  geom_boxplot(color = lakename) +
-  labs(y = "Total Nitrogen_TN") +
-  theme_minimal() +
-  theme(
-    axis.title.x = element_blank()
-  )
-## Combine the three plots into one figure with aligned axes
-combined_plot <- plot_grid(
-  plot_temp + theme(legend.position = "none"),  # Remove legend from this plot
-  plot_tp + theme(legend.position = "none"),    # Remove legend from this plot
-  plot_tn + theme(legend.position = "right"),   # Add legend to this plot
-  ncol = 1,                                     # Stack the plots vertically
-  align = 'v',                                  # Align vertically
-  axis = "l"                                    # Align axis labels on the left
-)
-
-# Print the combined plot
-print(combined_plot)
-
-#5
-# I create a data frame with all months
-all_months <- data.frame(month = unique(peter_paul_data$month))
-# Here I merge my original data with the data frame containing all months
-peter_paul_data <- merge(all_months, peter_paul_data, by = "month", all.x = TRUE)
-# Now I define a vector of abbreviated month labels
-month_labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-# Next, I modify my boxplot code
-boxplot_temp <- ggplot(peter_paul_data, aes
-(x = factor(month, levels = unique(month)),
-y = temperature_C, fill = lakename)) +
-geom_boxplot() +
-labs(title = "Boxplot of Temperature", y = "Temperature (°C)") +
-theme_minimal() +
-scale_x_discrete(expand = c(0, 0), labels = month_labels)
-boxplot_tp <- ggplot(peter_paul_data,
-aes(x = factor(month, levels = unique(month)),
-y = tp_ug, fill = lakename)) +
-geom_boxplot() +
-labs(title = "Boxplot of Total Phosphorus (TP)", y = "Total P") +
-theme_minimal() +
-scale_x_discrete(expand = c(0, 0), labels = month_labels)
-boxplot_tn <- ggplot(peter_paul_data,
-aes(x = factor(month, levels = unique(month)),
+  ggplot(aes(x = factor(month, levels = unique(month)),
 y = tn_ug, fill = lakename)) +
 geom_boxplot() +
 labs(title = "Boxplot of Total Nitrogen (TN)", y = "Total N") +
 theme_minimal() +
-scale_x_discrete(expand = c(0, 0), labels = month_labels)
-# Here I combine the three boxplots into a single cowplot with one legend and aligned axes
-combined_plot <- plot_grid(boxplot_temp, boxplot_tp,
-boxplot_tn, ncol = 1, align = "v",
-rel_heights = c(1, 1, 1))
+scale_x_discrete(expand = c(0, 0)) + #, labels = month_labels)+
+  theme(
+    axis.title.x = element_blank()
+  )
 
+## Combine the three plots into one figure with aligned axes
+
+combined_plot <- plot_grid(
+  plot_temp + theme(legend.position = "right"), # Remove legend from this plot
+plot_tp + theme(legend.position = "right"), # Remove legend from this plot
+plot_tn + theme(legend.position = "right"), # Add legend to this plot
+ncol = 1, # Stack the plots vertically
+align = 'v', # Align vertically
+axis = "l", # Align axis labels on the left
+rel_heights = c(1, 1, 1)
+)
+#Print the combined plot.
+print(combined_plot)
 
 
 ```
 
 Question: What do you observe about the variables of interest over seasons and between lakes? 
 
-> Answer: 
+> Answer: From the boxplot of Temperature, Paul Lake has higher temperatures 
+than Peter Lakewe every month except for July.
+From the boxplot of Total Phosphorus, Paul Lake has lower Phosphorus levels. 
+From the Boxplot of Total Nitrogen, Paul Lake has lower levels of Nitrogen.
+In general, Paul Lake has higher temperature and lower Phosphorus and Nitrogen 
+levels. I don't understand any thing about environment but from the data, these 
+variables maybe connected or has corrolation or causal relation.  
 
 6. [Niwot Ridge] Plot a subset of the litter dataset by displaying only the "Needles" functional group. Plot the dry mass of needle litter by date and separate by NLCD class with a color aesthetic. (no need to adjust the name of each land use)
 
@@ -232,7 +223,8 @@ Question: What do you observe about the variables of interest over seasons and b
 needles_datasubset <- NEON.NIWO.Litter.mass.trap %>%
 filter(functionalGroup == "Needles")
 # Now I create the plot
-ggplot(needles_datasubset, aes(x = collectDate, y = dryMass, color = nlcdClass)) +
+ggplot(needles_datasubset, 
+       aes(x = collectDate, y = dryMass, color = nlcdClass)) +
 geom_line() +
 labs(
 title = "Dry Mass of Needle Litter by Date",
@@ -241,9 +233,27 @@ x = "Date", y = "Dry Mass (g)"
 theme_minimal()
 
 #7
-
+# Use the filtered datasubset that includes only the "Needles" functional group
+# needles_datasubset
+# Create the plot with facets
+ggplot(needles_datasubset, aes(x = collectDate, y = dryMass)) +
+geom_line(aes(color = nlcdClass)) +
+labs(
+title = "Dry Mass of Needle Litter by Date",
+x = "Date",
+y = "Dry Mass (g)"
+) +
+  # Separate by nlcdClass into facets
+facet_wrap(~ nlcdClass, scales = "free_y", ncol = 1) + 
+theme_minimal()
 
 ```
 Question: Which of these plots (6 vs. 7) do you think is more effective, and why? 
 
-> Answer:
+> Answer: It depends on what we are looking for and what information or question
+we are answering using these graphs. For example, for data visualisation and for
+this exercise, Plot 7 is more easier to understand and shows the distribution of
+the dry mass within different years (peaks and bottoms, stability, etc.) because
+they are only 3 nlcd classes. However, if we want to compare the datasets 
+between NLCD classes, it would be better to use plot 6 as it shows the trends 
+within and between classes. 

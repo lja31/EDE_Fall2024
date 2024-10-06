@@ -273,7 +273,7 @@ surface_temp_plot4 <- PeterPaul.chem.nutrients %>%
       y=temperature_C,
       color=depth )) + 
   geom_point(size=0.5) +
-  scale_color_viridis(option="magma", direction=-1)
+  scale_color_viridis(option="magma", direction=-1)+
   scale_x_date(date_breaks="5 years", date_labels = "%Y")
 
 #Show the basic plot
@@ -291,7 +291,17 @@ Exercise: Plot relationships between air quality measurements
 # Make the points 50 % transparent
 # Add a line of best fit for the linear regression of these variables.
 
-
+EPAair %>% 
+  ggplot(
+    aes(x=PM2.5,
+        y=Ozone,
+        color=mean_lat
+      
+    ),
+    alpha=0.5
+    )+
+  geom_point() +
+geom_smooth(method=lm, se=FALSE)
 
 
 ```
