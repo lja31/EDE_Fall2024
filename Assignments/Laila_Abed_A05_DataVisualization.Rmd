@@ -137,25 +137,23 @@ Tips:
 * Individual plots can have different sizes when combined using `cowplot`.
 
 ```{r Create boxplots}
-#5
-#all_months <- data.frame(month = unique(NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$month))
-# Here I merge my original data with the data frame containing all months
-#NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul <- merge(all_months, #NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul, by = "month", all.x = TRUE)
-# abbreviated month labels
-#month_labels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-
 
 #5 
 #boxplot temperature
+NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$month <- factor(
+NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul$month,
+levels=c("1","2","3","4","5","6","7", "8", "9", "10", "11", "12"),
+labels=c(
+  "Jan","Feb","Mar","Apr","May","Jun","Jul", "Aug", "Sep", "Oct", "Nov","Dec"))
 
 plot_temp <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
   ggplot(
-    aes(x=factor(month, levels = unique(month)), y = temperature_C,
+    aes(x=month, y = temperature_C,
         fill = lakename)) +
   geom_boxplot() +
   labs(title = "Boxplot of Temperature", y = "Temperature (°C)") +
   theme_minimal() +
-  scale_x_discrete(expand = c(0, 0)) + #,labels = month_labels)+
+  scale_x_discrete(drop=FALSE )+
   theme(
     axis.title.x = element_blank(),
     legend.position = "none"
@@ -164,24 +162,23 @@ plot_temp <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>%
 #boxplot total phosphorus 
 plot_tp <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
   ggplot(
-    aes(x = factor(month, levels = unique(month)),
-y = tp_ug, fill = lakename)) +
+    aes(x = month, y = tp_ug, fill = lakename)) +
 geom_boxplot() +
 labs(title = "Boxplot of Total Phosphorus (TP)", y = "Total P") +
 theme_minimal() +
-scale_x_discrete(expand = c(0, 0))+ #, labels = month_labels)+
+scale_x_discrete(drop=FALSE ) +
   theme(
     axis.title.x = element_blank(),
     legend.position = "none"
   )
 #boxplot total nitrogen
 plot_tn <- NTL.LTER.Lake.Chemistry.Nutrients.PeterPaul %>% 
-  ggplot(aes(x = factor(month, levels = unique(month)),
+  ggplot(aes(x =month,
 y = tn_ug, fill = lakename)) +
 geom_boxplot() +
 labs(title = "Boxplot of Total Nitrogen (TN)", y = "Total N") +
 theme_minimal() +
-scale_x_discrete(expand = c(0, 0)) + #, labels = month_labels)+
+scale_x_discrete(drop=FALSE ) + 
   theme(
     axis.title.x = element_blank()
   )
