@@ -116,17 +116,30 @@ labels=c(
   "Jan","Feb","Mar","Apr","May","Jun","Jul", "Aug", "Sep", "Oct", "Nov","Dec"))
 
 
-Ozonedataset <- epa_data %>% 
+Ozonedataset1 <- epa_data %>% 
+  filter(Year == 2018) %>% 
   ggplot(aes(x = Month, y=Ozone)) +
   geom_boxplot() +
-labs(title = "Boxplot of Ozone", y = "Month") +
+labs(title = "Boxplot of Ozone", x = "Month") +
 theme_minimal() +
 scale_x_discrete(drop=FALSE) +
   theme(
     axis.title.x = element_blank(),
     legend.position = "up"
   )
-print(Ozonedataset)
+print(Ozonedataset1)
+Ozonedataset2 <- epa_data %>% 
+  filter(Year == 2019) %>% 
+  ggplot(aes(x = Month, y=Ozone)) +
+  geom_boxplot() +
+labs(title = "Boxplot of Ozone", x = "Month") +
+theme_minimal() +
+scale_x_discrete(drop=FALSE) +
+  theme(
+    axis.title.x = element_blank(),
+    legend.position = "up"
+  )
+print(Ozonedataset2)
 
 ```
 
