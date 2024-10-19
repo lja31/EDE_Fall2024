@@ -36,13 +36,19 @@ Using markdown, create a 2-column table beneath the `Table: EPA Air Quality` lin
 
 Table: EPA Air Quality
 
+Table: EPA Air Quality
 
+|     Item | Value                               |
+|---------:|-------------------------------------|
+| Filename | EPAair_O3_PM25_NC1819_Processed.csv |
+|     Date | 2018-2019                           |
+|   Source | EPA Air Quality System (AQS)        |
 
 ## Task 2 - Import packages and data, suppressing messages
 
 Set the following R code chunk so that it runs when knit, but no messages, errors, or any output is shown. The code itself, however, should be displayed.
 
-```{r echo=TRUE}
+```{r project.setup, include = TRUE, message=FALSE}
 #Import libraries
 library(tidyverse)
 library(lubridate)
@@ -83,7 +89,7 @@ summary_PM25 <- epa_data %>%
   summarize(mean_PM2.5 = mean(PM2.5)) %>% 
   arrange(mean_PM2.5)
 kable(x=summary_PM25, caption = "Mean Particulates (2.5mm)", 
-      col.names = c("County","µg/m3"), digits = 2)
+      col.names = c("County","$\\mu g/m^3$"), digits = 2)
 #Compute mean ozone concentration for each county, sorted by value
 summary_Ozone <- epa_data %>% 
   drop_na(Ozone) %>% 
@@ -91,7 +97,8 @@ summary_Ozone <- epa_data %>%
   summarize(
     mean_Ozone = mean(Ozone)) %>% 
   arrange(mean_Ozone)
-kable(x=summary_Ozone, caption = "Mean Ozone", col.names = c("County","µg/m3"), 
+kable(x=summary_Ozone, caption = "Mean Ozone", 
+      col.names = c("County","$\\mu g/m^3$"), 
       digits = 2)
 
 #Use the `kable` function to produce the 2 tables in markdown format
@@ -106,7 +113,7 @@ Below this paragraph, but above the horizonal line (`---`), create two separate 
 
 \newpage
 
-```{r echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, fig.cap="2018 monthly Ozone", fig.dim=c(7,3)}
 library(ggridges)
 
 epa_data$Month <- factor(
@@ -120,28 +127,34 @@ Ozonedataset1 <- epa_data %>%
   filter(Year == 2018) %>% 
   ggplot(aes(x = Month, y=Ozone)) +
   geom_boxplot() +
-labs(title = "Boxplot of Ozone", x = "Month") +
-theme_minimal() +
-scale_x_discrete(drop=FALSE) +
+labs(title = "Monthly Ozone concentrations (2018)", x="Month", 
+     y = expression(paste("Concentration (", mu, "g/m^3)"))) +
+scale_x_discrete(expand = c(0, 0), drop=FALSE) +
   theme(
-    axis.title.x = element_blank(),
     legend.position = "up"
   )
 print(Ozonedataset1)
+
+
+
+```
+
+
+```{r, echo=FALSE, warning=FALSE, fig.cap="2019 monthly Ozone", fig.dim=c(7,3)}
 Ozonedataset2 <- epa_data %>% 
   filter(Year == 2019) %>% 
   ggplot(aes(x = Month, y=Ozone)) +
   geom_boxplot() +
-labs(title = "Boxplot of Ozone", x = "Month") +
-theme_minimal() +
-scale_x_discrete(drop=FALSE) +
+labs(title = "Monthly Ozone concentrations (2019)", x="Month", 
+     y = expression(paste("Concentration (", mu, "g/m^3)"))) +
+scale_x_discrete(expand = c(0, 0), drop=FALSE) +
   theme(
-    axis.title.x = element_blank(),
-    legend.position = "up"
+        legend.position = "up"
   )
 print(Ozonedataset2)
 
 ```
+
 
 ---
 
