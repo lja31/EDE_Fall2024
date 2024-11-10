@@ -262,6 +262,6 @@ gage_sites_in_lancaster_15km <- st_join(
 #25 Plot
 mapview(counties_sf.utm, col.region = "purple", layer.name= "Nebraska Counties") +
 mapview(lancaster_sf, col.region = "white", layer.name= "Lancaster County")+
-mapview(gage_sites_in_lancaster, col.region = "blue", layer.name= "Gage sites in Lancaster")+
-mapview(gage_sites_in_lancaster_15km, col.region="green", layer.name="Gage sites in lancaster 15km")
+mapview(gage_sites_in_lancaster_15km, col.region="green", layer.name="Gage sites in lancaster 15km")+
+mapview(gage_sites_in_lancaster, col.region = "blue", layer.name= "Gage sites in Lancaster")
 ```
