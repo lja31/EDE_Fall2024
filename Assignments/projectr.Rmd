@@ -15,19 +15,28 @@ library(dplyr)
 library(ggplot2)
 
 here()
-dataset <- read_csv(here("Data/project/population_sheet.csv"))
+dataset <- read_csv(here("Data/project/population_sheet1.csv"))
 colnames(dataset)
 
-dataset2 <- pivot_wider(dataset, names_from = 'Indicator_Name', values_from ='1984':'2023')
-
-dataset1 <- pivot_longer(dataset2,c(1984:2023), names_to = "Year", values_to = '1984_Urban_population_growth':'2023_Mortality_rate_attributed_tounintentional_poisoning_male')
+#dataset2 <- pivot_wider(dataset, names_from = 'Indicator_Name', values_from ='1984':'2023')
 
 
-write.csv(dataset1, row.names = FALSE, file.path(
-  "/home/guest/EDE_Fall2024/Data/project/dataset1.csv")
-          )
 
-  
+data_long <- dataset %>%
+  pivot_longer(
+    col='1984':'2023',
+    names_to = "Year",
+    values_to = "Value"
+  )
+data_transposed <- data_long %>%
+  pivot_wider(names_from = "Year",  
+    values_from = "Value"  
+  )
+
+dataset2 <- pivot_wider(data_long, names_from = 'Indicator_Name', values_from ='Value')  
+
+#write.csv(dataset2, row.names = FALSE, file.path("/home/guest/EDE_Fall2024/Data/project/dataset2.csv"))
+          
 
 ```
 
