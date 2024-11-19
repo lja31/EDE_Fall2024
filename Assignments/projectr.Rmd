@@ -15,12 +15,8 @@ library(dplyr)
 library(ggplot2)
 
 here()
-dataset <- read_csv(here("Data/project/population_sheet1.csv"))
+dataset <- read_csv(here("Data/project/population_sheet_updated.csv"))
 colnames(dataset)
-
-#dataset2 <- pivot_wider(dataset, names_from = 'Indicator_Name', values_from ='1984':'2023')
-
-
 
 data_long <- dataset %>%
   pivot_longer(
@@ -28,10 +24,9 @@ data_long <- dataset %>%
     names_to = "Year",
     values_to = "Value"
   )
-data_transposed <- data_long %>%
-  pivot_wider(names_from = "Year",  
-    values_from = "Value"  
-  )
+#data_transposed <- data_long %>%
+#  pivot_wider(names_from = "Year",  
+#    values_from = "Value")
 
 dataset2 <- pivot_wider(data_long, names_from = 'Indicator_Name', values_from ='Value')  
 
@@ -46,8 +41,8 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+```{r}
+
 ```
 
 ## Including Plots
